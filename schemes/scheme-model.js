@@ -10,6 +10,7 @@ module.exports = {
   add,
   update,
   remove,
+  addStep,
 };
 
 function find() {
@@ -58,4 +59,13 @@ function remove(id) {
       return null;
     }
   });
+}
+
+function addStep(stepData, scheme_id) {
+  return database("steps")
+    .insert({ ...stepData, scheme_id }, "id")
+    .then((new_ids) => {
+      const id = new_ids[0];
+      return database("steps").select().where({ id }).first();
+    });
 }
