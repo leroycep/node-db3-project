@@ -9,6 +9,7 @@ module.exports = {
   findSteps,
   add,
   update,
+  remove,
 };
 
 function find() {
@@ -44,3 +45,17 @@ function update(changes, id) {
     });
 }
 
+function remove(id) {
+  return findById(id).then((scheme) => {
+    if (scheme) {
+      return database("schemes")
+        .where({ id })
+        .del()
+        .then((_num_updated) => {
+          return scheme;
+        });
+    } else {
+      return null;
+    }
+  });
+}
