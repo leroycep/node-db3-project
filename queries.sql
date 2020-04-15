@@ -39,3 +39,29 @@ from `Order`
 join Customer on CustomerId = Customer.Id
 join Employee on EmployeeId = Employee.Id;
 
+-- (Stretch) Displays CategoryName and a new column called Count that shows how
+-- many products are in each category. Shows 8 records.
+
+select
+  CategoryName,
+  count(Product.Id)
+from Category
+join Product on Product.CategoryId = Category.Id
+group by CategoryName;
+
+-- (Stretch) Display OrderID and a column called ItemCount that shows the total
+-- number of products placed on the order. Shows 196 records.
+
+select
+  OrderId,
+  sum(OrderDetail.ProductId) as 'ItemCount'
+from OrderDetail
+group by OrderId;
+
+-- on w3schools:
+
+select
+  OrderId,
+  sum(OrderDetails.ProductId) as 'ItemCount'
+from OrderDetails
+group by OrderId;
