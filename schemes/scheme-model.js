@@ -18,8 +18,18 @@ function findSteps(scheme_id) {
     .join("schemes", { "steps.scheme_id": "schemes.id" });
 }
 
+function add(scheme) {
+  return database("schemes")
+    .insert(scheme, "id")
+    .then((new_ids) => {
+      const id = new_ids[0];
+      return database("schemes").select().where({ id }).first();
+    }).catch(err => console.log(err));
+}
+
 module.exports = {
   find,
   findById,
   findSteps,
+  add,
 };
