@@ -54,7 +54,7 @@ group by CategoryName;
 
 select
   OrderId,
-  sum(OrderDetail.ProductId) as 'ItemCount'
+  sum(OrderDetail.Quantity) as 'ItemCount'
 from OrderDetail
 group by OrderId;
 
@@ -62,6 +62,6 @@ group by OrderId;
 
 select
   OrderId,
-  sum(OrderDetails.ProductId) as 'ItemCount'
+  sum(OrderDetails.Quantity) as 'ItemCount'
 from OrderDetails
 group by OrderId;
