@@ -3,6 +3,14 @@ const knexfile = require("../knexfile.js");
 
 const database = knex(knexfile.development);
 
+module.exports = {
+  find,
+  findById,
+  findSteps,
+  add,
+  update,
+};
+
 function find() {
   return database("schemes").select();
 }
@@ -24,12 +32,15 @@ function add(scheme) {
     .then((new_ids) => {
       const id = new_ids[0];
       return database("schemes").select().where({ id }).first();
-    }).catch(err => console.log(err));
+    });
 }
 
-module.exports = {
-  find,
-  findById,
-  findSteps,
-  add,
-};
+function update(changes, id) {
+  return database("schemes")
+    .where({ id })
+    .update(changes)
+    .then((_num_updated) => {
+      return database("schemes").select().where({ id }).first();
+    });
+}
+
